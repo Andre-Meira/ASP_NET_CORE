@@ -1,0 +1,42 @@
+﻿@model IEnumerable<ASP_NET_CORE.Models.User>
+@{
+    ViewData["Title"] = "Listagem de Dados";
+}
+
+<h2>Listagem de Dados</h2>
+
+<a asp-action="NovoUser" class="btn btn-primary">Novo User</a>
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                Nome
+            </tr>
+            <tr>
+                Senha
+            </tr>
+        </thead>
+        
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(ModelItem => item.Nome);
+                </td>
+                <td>
+                    @Html.DisplayFor(ModelItem => item.Senha);
+                </td>
+
+                <td>
+                    <a asp-action="Atualizar" asp-route-id="@item.UserID" class="btn btn-info">Atualizar</a>
+                    <a asp-action="Detalhes" asp-route-id="@item.UserID" class="btn btn-warning">Detalhes</a>
+                    <a asp-action="Excluir" asp-route-id="@item.UserID" class="btn btn-danger">Excluir</a>
+                </td>
+            </tr>             
+            }
+        </tbody>
+
+
+    </table>
+</div>
