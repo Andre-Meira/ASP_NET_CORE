@@ -45,5 +45,31 @@ namespace ASP_NET_CORE.Controllers
 
 		}
 
+		[HttpGet]
+		public IActionResult AtualizarUser(int? id) 
+		{
+			if (id == null) { return NotFound(); }
+
+			var User = _contexto.User.Find(id);
+
+			return View(User);
+		}
+
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public IActionResult AtualizarUser(int? id, User user) 
+		{
+			if (id == null) { return NotFound(); }
+
+			if (ModelState.IsValid) 
+			{
+				_contexto.Update(user);
+				_contexto.SaveChanges();
+				return RedirectToAction(nameof(Index));
+			}
+
+			return View(user);
+		}
+
 	}
 }
