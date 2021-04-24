@@ -49,9 +49,8 @@ namespace ASP_NET_CORE.Controllers
 		public IActionResult AtualizarUser(int? id) 
 		{
 			if (id == null) { return NotFound(); }
-
+			
 			var User = _contexto.User.Find(id);
-
 			return View(User);
 		}
 
@@ -59,8 +58,6 @@ namespace ASP_NET_CORE.Controllers
 		[ValidateAntiForgeryToken]
 		public IActionResult AtualizarUser(int? id, User user) 
 		{
-			if (id == null) { return NotFound(); }
-
 			if (ModelState.IsValid) 
 			{
 				_contexto.Update(user);
@@ -70,6 +67,34 @@ namespace ASP_NET_CORE.Controllers
 
 			return View(user);
 		}
+
+		[HttpGet]
+		public IActionResult ExcluirUser(int? id)
+		{
+			if (id == null) { return NotFound(); }
+
+			var User = _contexto.User.FirstOrDefault(X => X.UserID == id);
+
+			return View(User);
+		}
+
+		[HttpPost, ActionName("ExcluirUser")]
+		[ValidateAntiForgeryToken]
+		public IActionResult ConfirmoExclusao(int? id)
+		{
+			if (ModelState.IsValid) 
+			{
+				var User = _contexto.User.FirstOrDefault(X => X.UserID == id);
+				_contexto.Remove(User);
+				_contexto.SaveChanges();
+				return RedirectToAction(nameof(Index));
+			}
+
+			return View(User);
+		
+		
+		}
+
 
 	}
 }

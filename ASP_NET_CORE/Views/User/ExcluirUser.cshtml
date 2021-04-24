@@ -1,0 +1,21 @@
+﻿@model ASP_NET_CORE.Models.User
+
+
+@{
+    ViewData["Title"] = "ExcluiUser";
+}
+
+
+<h2>Excluir</h2>
+
+<div class="row">
+    @Html.DisplayFor(Model => Model.Nome)
+    @Html.DisplayFor(Model => Model.Senha)
+</div>
+
+
+<form asp-action="ExcluirUser">
+
+    <input  type="hidden" asp-for="UserID"/>
+    <input type="submit" value="ExcluiUser" class="btn btn-danger" />
+</form>
